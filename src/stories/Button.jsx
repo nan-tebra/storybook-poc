@@ -46,6 +46,5 @@ Button.defaultProps = {
   backgroundColor: null,
   primary: false,
   size: 'medium',
-  label: 'Click',
   onClick: undefined,
 };
