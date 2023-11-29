@@ -1,6 +1,6 @@
 {
   "name": "storybook-poc",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
@@ -20,7 +20,7 @@
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build-storybook-pages": "storybook build --output-dir /storybook-static/$npm_package_version"
+    "build-storybook-pages": "storybook build --output-dir storybook-static/$npm_package_version"
   },
   "eslintConfig": {
     "extends": [
