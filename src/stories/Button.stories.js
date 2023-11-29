@@ -20,7 +20,7 @@ export default {
 export const Primary = {
   args: {
     primary: true,
-    label: 'Button v0.4.0',
+    label: 'Primary Button v0.4.0',
   },
 };
 
