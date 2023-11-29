@@ -26,7 +26,7 @@ export const Primary = {
 
 export const Secondary = {
   args: {
-    label: 'Button v0.4.0',
+    label: 'Secondary Button v0.4.0',
   },
 };
 
