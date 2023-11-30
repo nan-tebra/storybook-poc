@@ -22,8 +22,8 @@ title: storybook-poc
 # email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   Serve Storybook builds along with other static info.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/storybook-poc" # the subpath of your site, e.g. /blog
+url: "https://nan-tebra.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllr
 # github_username:  jekyll
 
