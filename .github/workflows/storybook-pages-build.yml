@@ -13,7 +13,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build and Push
+    name: Build Storybook and Push to gh-pages
     steps:
       - name: git-checkout
         uses: actions/checkout@master
@@ -24,7 +24,7 @@ jobs:
       - name: Build Storybook
         run: yarn build-storybook-pages
     
-      - name: Push
+      - name: Push to gh-pages
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
@@ -33,3 +33,25 @@ jobs:
           TARGET_DIR: storybook
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
           MESSAGE: "Build: ({sha}) {msg}" # The commit message
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
