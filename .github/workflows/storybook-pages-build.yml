@@ -35,7 +35,7 @@ jobs:
 
       # Will need to cd to correct directory
       - name: Build Storybook
-        run: yarn build-storybook-pages
+        run: yarn build-storybook
     
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
