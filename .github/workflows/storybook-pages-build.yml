@@ -22,16 +22,19 @@ jobs:
       - name: git-checkout
         uses: actions/checkout@v4
 
+      # Will need to cd to correct directory
       - name: Extract package version
         shell: bash
         run: echo "##[set-output name=version;]$(echo $npm_package_version)"
         id: extract_version
 
+      # Will need to cd to correct directory
       - name: Install all dependencies
         run: yarn install
 
+      # Will need to cd to correct directory
       - name: Build Storybook
-        run: yarn build-storybook-pages
+        run: yarn build-storybook
     
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
