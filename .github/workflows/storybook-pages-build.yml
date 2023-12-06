@@ -23,9 +23,11 @@ jobs:
         uses: actions/checkout@v4
 
       # Will need to cd to correct directory
-      - name: Extract package version
-        shell: bash
-        run: echo "current-version=${PACKAGE_VERSION}" >> $GITHUB_OUTPUT
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+        with:
+          path: .
 
       # Will need to cd to correct directory
       - name: Install all dependencies
