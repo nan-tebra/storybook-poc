@@ -42,4 +42,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           folder: storybook-static
-          target-folder: ${{steps.package-version.outputs.current-version}}
+          target-folder: v${{steps.package-version.outputs.current-version}}
