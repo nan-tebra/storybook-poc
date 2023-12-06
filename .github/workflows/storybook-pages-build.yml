@@ -25,8 +25,7 @@ jobs:
       # Will need to cd to correct directory
       - name: Extract package version
         shell: bash
-        run: echo "##[set-output name=version;]$(echo $npm_package_version)"
-        id: extract_version
+        run: echo "current-version=${PACKAGE_VERSION}" >> $GITHUB_OUTPUT
 
       # Will need to cd to correct directory
       - name: Install all dependencies
