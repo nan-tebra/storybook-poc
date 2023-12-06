@@ -1,4 +1,4 @@
-name: Build and Publish Storybook with DS change PR
+name: Build Storybook and push to gh-pages on merge to main
 
 on:
   push:
@@ -6,31 +6,28 @@ on:
       - main
     paths:
       - src/stories/**
-
-permissions:
-  contents: read
-  id-token: write
-  pages: write
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.build-publish.outputs.page_url }}
+  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
     
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build Storybook and Push to gh-pages
     steps:
-      # Manual Checkout
-      - uses: actions/checkout@v3
+      - name: git-checkout
+        uses: actions/checkout@v4
 
-      # Set up Node
-      - uses: actions/setup-node@v3
+      # Will need to cd to correct directory
+      - name: Install all dependencies
+        run: yarn install
+
+      # Will need to cd to correct directory
+      - name: Build Storybook
+        run: yarn build-storybook
+    
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          node-version: '18.x'
-      # Add Storybook build and deploy to GitHub Pages as a step in the workflow
-      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.1
-        with:
-          install_command: yarn install
-          build_command: yarn build-storybook
-          path: storybook-static
-          
+          token: ${{ secrets.GITHUB_TOKEN }}
+          folder: storybook-static
