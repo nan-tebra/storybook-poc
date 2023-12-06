@@ -2,7 +2,8 @@ name: Build Storybook and push to gh-pages
 
 on:
   push:
-    branches: ["main", "gh-pages"]
+    branches:
+      - main
     paths:
       - src/stories/**
   pull_request:
