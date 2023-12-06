@@ -21,8 +21,11 @@ jobs:
     steps:
       - name: git-checkout
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract package version
+        shell: bash
+        run: echo "##[set-output name=version;]$(echo $npm_package_version)"
+        id: extract_version
 
       - name: Install all dependencies
         run: yarn install
@@ -35,3 +38,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           folder: storybook-static
+          target-folder: ${{steps.extract_version.outputs.version}}
