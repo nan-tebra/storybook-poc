@@ -26,6 +26,8 @@ jobs:
     steps:
       - name: git-checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install all dependencies
         run: yarn install
