@@ -1,6 +1,10 @@
 name: Build Storybook and push to gh-pages
 
 on:
+  push:
+    branches: ["main", "gh-pages"]
+    paths:
+      - src/stories/**
   pull_request:
     branches:
       - main
@@ -9,14 +13,19 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
+  
+permissions:
+  contents: read
+  id-token: write
+  pages: write
+    
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Build Storybook and Push to gh-pages
     steps:
       - name: git-checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
 
       - name: Install all dependencies
         run: yarn install
@@ -24,34 +33,17 @@ jobs:
       - name: Build Storybook
         run: yarn build-storybook-pages
     
-      - name: Push to gh-pages
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: self
-          BRANCH: gh-pages # The branch name where you want to push the assets
-          FOLDER: storybook-static # The directory where your assets are generated
-          TARGET_DIR: storybook
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
-          MESSAGE: "Build: ({sha}) {msg}" # The commit message
+      # - name: Push to gh-pages
+      #   uses: s0/git-publish-subdir-action@develop
+      #   env:
+      #     REPO: self
+      #     BRANCH: gh-pages # The branch name where you want to push the assets
+      #     FOLDER: storybook-static # The directory where your assets are generated
+      #     TARGET_DIR: storybook
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
+      #     MESSAGE: "Build: ({sha}) {msg}" # The commit message
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          source: ./
-          destination: ./_site
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-
-  # Deployment job
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+          folder: storybook-static
