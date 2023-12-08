@@ -23,9 +23,9 @@ jobs:
       - name: git-checkout
         uses: actions/checkout@v4
 
-      - name: Set package version
-        id: package-version
-        run: echo "package-version=$(echo $npm_package_version)" >> $GITHUB_ENV
+      # - name: Set package version
+      #   id: package-version
+      #   run: echo "package-version=$(echo $npm_package_version)" >> $GITHUB_ENV
 
       # Will need to cd to correct directory
       - name: Install all dependencies
@@ -40,4 +40,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           folder: storybook-static
-          target-folder: v${{env.package-version}}
+          target-folder: v${{env.PACKAGE_VERSION}} 
