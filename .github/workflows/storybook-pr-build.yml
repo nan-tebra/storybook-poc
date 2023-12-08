@@ -25,7 +25,7 @@ jobs:
 
       - name: Set package version
         id: package-version
-        run: echo "package-version=$npm_package_version" >> $GITHUB_ENV
+        run: echo "package-version=$(echo $npm_package_version)" >> $GITHUB_ENV
 
       # Will need to cd to correct directory
       - name: Install all dependencies
