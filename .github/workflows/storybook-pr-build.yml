@@ -23,16 +23,8 @@ jobs:
       - name: git-checkout
         uses: actions/checkout@v4
 
-      # Will need to cd to correct directory
-      - name: get-npm-version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
-        with:
-          path: .
-
       - name: Set package version
-        run: echo '::set-output name=package-version::$npm_package_version'
-        id: current
+        run: echo "{package-version}={$npm_package_version}" >> $GITHUB_STATE
 
       # Will need to cd to correct directory
       - name: Install all dependencies
