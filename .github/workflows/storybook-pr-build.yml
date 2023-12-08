@@ -30,6 +30,10 @@ jobs:
         with:
           path: .
 
+      - name: Set package version
+        run: echo '::set-output name=package-version::$npm_package_version'
+        id: current
+
       # Will need to cd to correct directory
       - name: Install all dependencies
         run: yarn install
